@@ -14,7 +14,344 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      investment_applications: {
+        Row: {
+          amount: number
+          created_at: string | null
+          id: string
+          investment_id: string
+          notes: string | null
+          status: string | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string | null
+          id?: string
+          investment_id: string
+          notes?: string | null
+          status?: string | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string | null
+          id?: string
+          investment_id?: string
+          notes?: string | null
+          status?: string | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "investment_applications_investment_id_fkey"
+            columns: ["investment_id"]
+            isOneToOne: false
+            referencedRelation: "investments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "investment_applications_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      investments: {
+        Row: {
+          created_at: string | null
+          description: string
+          documents: Json | null
+          duration: string | null
+          expected_return: string | null
+          id: string
+          investment_type: string
+          minimum_investment: number
+          status: string | null
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description: string
+          documents?: Json | null
+          duration?: string | null
+          expected_return?: string | null
+          id?: string
+          investment_type: string
+          minimum_investment: number
+          status?: string | null
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string
+          documents?: Json | null
+          duration?: string | null
+          expected_return?: string | null
+          id?: string
+          investment_type?: string
+          minimum_investment?: number
+          status?: string | null
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      orders: {
+        Row: {
+          created_at: string | null
+          id: string
+          order_status: string | null
+          payment_method: string | null
+          payment_status: string | null
+          product_id: string
+          quantity: number
+          shipping_address: Json | null
+          total_amount: number
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          order_status?: string | null
+          payment_method?: string | null
+          payment_status?: string | null
+          product_id: string
+          quantity: number
+          shipping_address?: Json | null
+          total_amount: number
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          order_status?: string | null
+          payment_method?: string | null
+          payment_status?: string | null
+          product_id?: string
+          quantity?: number
+          shipping_address?: Json | null
+          total_amount?: number
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "orders_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "orders_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      products: {
+        Row: {
+          category: string
+          created_at: string | null
+          description: string
+          id: string
+          image_url: string | null
+          is_active: boolean | null
+          name: string
+          price: number
+          specifications: Json | null
+          stock_quantity: number
+          unit: string
+          updated_at: string | null
+        }
+        Insert: {
+          category: string
+          created_at?: string | null
+          description: string
+          id?: string
+          image_url?: string | null
+          is_active?: boolean | null
+          name: string
+          price: number
+          specifications?: Json | null
+          stock_quantity?: number
+          unit: string
+          updated_at?: string | null
+        }
+        Update: {
+          category?: string
+          created_at?: string | null
+          description?: string
+          id?: string
+          image_url?: string | null
+          is_active?: boolean | null
+          name?: string
+          price?: number
+          specifications?: Json | null
+          stock_quantity?: number
+          unit?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          company_name: string | null
+          country: string | null
+          created_at: string | null
+          full_name: string
+          id: string
+          kyc_status: string | null
+          kyc_verified: boolean | null
+          phone: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          company_name?: string | null
+          country?: string | null
+          created_at?: string | null
+          full_name: string
+          id: string
+          kyc_status?: string | null
+          kyc_verified?: boolean | null
+          phone?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          company_name?: string | null
+          country?: string | null
+          created_at?: string | null
+          full_name?: string
+          id?: string
+          kyc_status?: string | null
+          kyc_verified?: boolean | null
+          phone?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      trades: {
+        Row: {
+          buyer_id: string | null
+          created_at: string | null
+          delivery_location: string | null
+          escrow_status: string | null
+          expected_delivery_date: string | null
+          id: string
+          payment_method: string | null
+          price_per_unit: number
+          product_type: string
+          quantity: number
+          seller_id: string
+          status: string | null
+          total_amount: number
+          unit: string
+          updated_at: string | null
+        }
+        Insert: {
+          buyer_id?: string | null
+          created_at?: string | null
+          delivery_location?: string | null
+          escrow_status?: string | null
+          expected_delivery_date?: string | null
+          id?: string
+          payment_method?: string | null
+          price_per_unit: number
+          product_type: string
+          quantity: number
+          seller_id: string
+          status?: string | null
+          total_amount: number
+          unit: string
+          updated_at?: string | null
+        }
+        Update: {
+          buyer_id?: string | null
+          created_at?: string | null
+          delivery_location?: string | null
+          escrow_status?: string | null
+          expected_delivery_date?: string | null
+          id?: string
+          payment_method?: string | null
+          price_per_unit?: number
+          product_type?: string
+          quantity?: number
+          seller_id?: string
+          status?: string | null
+          total_amount?: number
+          unit?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "trades_buyer_id_fkey"
+            columns: ["buyer_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "trades_seller_id_fkey"
+            columns: ["seller_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      transaction_checklists: {
+        Row: {
+          checklist_type: string
+          completed_items: Json | null
+          created_at: string | null
+          id: string
+          is_complete: boolean | null
+          items: Json
+          trade_id: string
+          updated_at: string | null
+        }
+        Insert: {
+          checklist_type: string
+          completed_items?: Json | null
+          created_at?: string | null
+          id?: string
+          is_complete?: boolean | null
+          items: Json
+          trade_id: string
+          updated_at?: string | null
+        }
+        Update: {
+          checklist_type?: string
+          completed_items?: Json | null
+          created_at?: string | null
+          id?: string
+          is_complete?: boolean | null
+          items?: Json
+          trade_id?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "transaction_checklists_trade_id_fkey"
+            columns: ["trade_id"]
+            isOneToOne: false
+            referencedRelation: "trades"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
