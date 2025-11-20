@@ -10,6 +10,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
+import OrderDialog from "@/components/OrderDialog";
 
 interface Product {
   id: string;
@@ -36,6 +37,8 @@ const Shop = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [category, setCategory] = useState<string>("all");
   const [loading, setLoading] = useState(true);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [orderDialogOpen, setOrderDialogOpen] = useState(false);
   const { user } = useAuth();
   const navigate = useNavigate();
 
@@ -61,13 +64,14 @@ const Shop = () => {
     setLoading(false);
   };
 
-  const handleOrder = (productId: string) => {
+  const handleOrderClick = (product: Product) => {
     if (!user) {
-      toast.error('Please sign in to place orders');
-      navigate('/auth');
+      toast.error("Please login to place an order");
+      navigate("/auth");
       return;
     }
-    toast.info('Order functionality coming soon - payment gateway integration pending');
+    setSelectedProduct(product);
+    setOrderDialogOpen(true);
   };
 
   return (
@@ -144,7 +148,7 @@ const Shop = () => {
                       <Button 
                         className="w-full" 
                         disabled={product.stock_quantity === 0}
-                        onClick={() => handleOrder(product.id)}
+                        onClick={() => handleOrderClick(product)}
                       >
                         <ShoppingCart className="mr-2 h-4 w-4" />
                         {product.stock_quantity > 0 ? 'Order Now' : 'Out of Stock'}
@@ -195,6 +199,12 @@ const Shop = () => {
           </div>
         </section>
       </div>
+
+      <OrderDialog 
+        product={selectedProduct}
+        open={orderDialogOpen}
+        onOpenChange={setOrderDialogOpen}
+      />
 
       <Footer />
     </div>
