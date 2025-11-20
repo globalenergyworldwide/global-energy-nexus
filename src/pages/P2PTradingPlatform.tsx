@@ -26,6 +26,8 @@ interface Trade {
   status: string;
   escrow_status: string;
   payment_method: string;
+  delivery_location: string | null;
+  expected_delivery_date: string | null;
   created_at: string;
 }
 
@@ -37,25 +39,43 @@ interface ChecklistItem {
 
 const P2PTradingPlatform = () => {
   const [trades, setTrades] = useState<Trade[]>([]);
+  const [publicListings, setPublicListings] = useState<Trade[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("buy");
   const { user } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!user) {
-      navigate('/auth');
-      return;
+    fetchPublicListings();
+    if (user) {
+      fetchUserTrades();
     }
-    fetchTrades();
   }, [user]);
 
-  const fetchTrades = async () => {
+  const fetchPublicListings = async () => {
     setLoading(true);
     const { data, error } = await supabase
       .from('trades')
       .select('*')
-      .or(`seller_id.eq.${user!.id},buyer_id.eq.${user!.id}`)
+      .is('buyer_id', null)
+      .eq('status', 'pending')
+      .order('created_at', { ascending: false });
+    
+    if (error) {
+      toast.error('Failed to load listings');
+    } else {
+      setPublicListings(data || []);
+    }
+    setLoading(false);
+  };
+
+  const fetchUserTrades = async () => {
+    if (!user) return;
+    
+    const { data, error } = await supabase
+      .from('trades')
+      .select('*')
+      .or(`seller_id.eq.${user.id},buyer_id.eq.${user.id}`)
       .order('created_at', { ascending: false });
     
     if (error) {
@@ -63,7 +83,14 @@ const P2PTradingPlatform = () => {
     } else {
       setTrades(data || []);
     }
-    setLoading(false);
+  };
+
+  const handleTradeAction = () => {
+    if (!user) {
+      toast.error('Please login to trade');
+      navigate('/auth');
+      return;
+    }
   };
 
   const statusIcons = {
@@ -156,34 +183,109 @@ const P2PTradingPlatform = () => {
               </TabsList>
 
               <TabsContent value="buy" className="mt-6">
-                <Card>
-                  <CardContent className="pt-6">
-                    <div className="text-center py-12">
-                      <ShoppingCart className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
-                      <h3 className="text-xl font-semibold mb-2">Browse Available Listings</h3>
-                      <p className="text-muted-foreground mb-6">Trading functionality coming soon</p>
-                      <Button disabled>Browse Listings</Button>
-                    </div>
-                  </CardContent>
-                </Card>
+                {loading ? (
+                  <div className="text-center py-12">Loading listings...</div>
+                ) : publicListings.length === 0 ? (
+                  <Card>
+                    <CardContent className="pt-6">
+                      <div className="text-center py-12">
+                        <ShoppingCart className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
+                        <h3 className="text-xl font-semibold mb-2">No Available Listings</h3>
+                        <p className="text-muted-foreground">Check back soon for new trading opportunities</p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ) : (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {publicListings.map((listing) => (
+                      <Card key={listing.id} className="hover:shadow-lg transition-shadow">
+                        <CardHeader>
+                          <div className="flex justify-between items-start">
+                            <div>
+                              <CardTitle className="text-lg">{listing.product_type}</CardTitle>
+                              <p className="text-sm text-muted-foreground mt-1">
+                                {listing.quantity} {listing.unit}
+                              </p>
+                            </div>
+                            <Badge variant="default">
+                              <TrendingUp className="h-3 w-3 mr-1" />
+                              Available
+                            </Badge>
+                          </div>
+                        </CardHeader>
+                        <CardContent>
+                          <div className="space-y-3">
+                            <div className="flex justify-between items-center py-2 border-b">
+                              <span className="text-sm text-muted-foreground">Price per {listing.unit}</span>
+                              <span className="font-semibold text-gold">${listing.price_per_unit.toLocaleString()}</span>
+                            </div>
+                            <div className="flex justify-between items-center py-2 border-b">
+                              <span className="text-sm text-muted-foreground">Total Amount</span>
+                              <span className="text-xl font-bold text-gold">${listing.total_amount.toLocaleString()}</span>
+                            </div>
+                            <div className="flex justify-between items-center py-2">
+                              <span className="text-sm text-muted-foreground">Payment</span>
+                              <Badge variant="secondary">
+                                {paymentMethods[listing.payment_method as keyof typeof paymentMethods].name}
+                              </Badge>
+                            </div>
+                            {listing.delivery_location && (
+                              <div className="flex justify-between items-center py-2">
+                                <span className="text-sm text-muted-foreground">Location</span>
+                                <span className="text-sm">{listing.delivery_location}</span>
+                              </div>
+                            )}
+                          </div>
+                          <div className="flex gap-2 mt-6">
+                            <Button variant="outline" className="flex-1" onClick={handleTradeAction}>
+                              View Details
+                            </Button>
+                            <Button className="flex-1" onClick={handleTradeAction}>
+                              <ShoppingCart className="h-4 w-4 mr-2" />
+                              Trade Now
+                            </Button>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                )}
               </TabsContent>
 
               <TabsContent value="sell" className="mt-6">
                 <Card>
                   <CardContent className="pt-6">
-                    <div className="text-center py-12">
-                      <TrendingUp className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
-                      <h3 className="text-xl font-semibold mb-2">Create a Listing</h3>
-                      <p className="text-muted-foreground mb-6">List your products for global buyers</p>
-                      <Button disabled>Create Listing</Button>
-                    </div>
+                    {!user ? (
+                      <div className="text-center py-12">
+                        <Lock className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
+                        <h3 className="text-xl font-semibold mb-2">Login Required</h3>
+                        <p className="text-muted-foreground mb-6">Please login to create listings</p>
+                        <Button onClick={() => navigate('/auth')}>Login to Sell</Button>
+                      </div>
+                    ) : (
+                      <div className="text-center py-12">
+                        <TrendingUp className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
+                        <h3 className="text-xl font-semibold mb-2">Create a Listing</h3>
+                        <p className="text-muted-foreground mb-6">List your products for global buyers</p>
+                        <Button disabled>Create Listing</Button>
+                      </div>
+                    )}
                   </CardContent>
                 </Card>
               </TabsContent>
 
               <TabsContent value="my-trades" className="mt-6">
-                {loading ? (
-                  <div className="text-center py-12">Loading trades...</div>
+                {!user ? (
+                  <Card>
+                    <CardContent className="pt-6">
+                      <div className="text-center py-12">
+                        <Lock className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
+                        <h3 className="text-xl font-semibold mb-2">Login Required</h3>
+                        <p className="text-muted-foreground mb-6">Please login to view your trades</p>
+                        <Button onClick={() => navigate('/auth')}>Login</Button>
+                      </div>
+                    </CardContent>
+                  </Card>
                 ) : trades.length === 0 ? (
                   <Card>
                     <CardContent className="pt-6">
