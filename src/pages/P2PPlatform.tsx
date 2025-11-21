@@ -133,11 +133,14 @@ const P2PPlatform = () => {
           </div>
           
           <div className="relative z-10 container mx-auto px-4 text-center">
-            <h1 className="text-5xl md:text-6xl font-bold text-background mb-4">
-              P2P Global Energy Exchange
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-background mb-4">
+              Global Oil P2P Marketplace
             </h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Revolutionary peer-to-peer trading platform connecting energy markets worldwide
+            <p className="text-xl md:text-2xl text-background/90 font-semibold mb-2">
+              Simple, Secure & Built for Everyone
+            </p>
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+              A smart and modern system that connects verified buyers and sellers from different parts of the world
             </p>
           </div>
         </section>
@@ -156,39 +159,35 @@ const P2PPlatform = () => {
                   {/* Platform Overview */}
                   <div>
                     <div className="max-w-4xl mx-auto mb-16 text-center">
-                      <h2 className="text-4xl font-bold text-primary mb-6">The Future of Energy Trading</h2>
+                      <h2 className="text-4xl font-bold text-primary mb-6">Welcome to Our International P2P Oil Trading Platform</h2>
                       <p className="text-lg text-foreground mb-6">
-                        Our innovative P2P Global Energy Exchange platform transforms how energy commodities are traded worldwide. By directly connecting suppliers, buyers, brokers, and governments, we eliminate unnecessary intermediaries and create a more efficient, transparent, and secure trading environment.
+                        A smart and modern system that connects verified buyers and sellers from different parts of the world. Whether you deal in crude oil, refined products, LPG, lubricants, or specialized petroleum commodities, our platform makes global trading easy, transparent, and secure.
                       </p>
-                      <p className="text-lg text-foreground">
-                        Experience real-time pricing, secure escrow services, comprehensive KYC verification, and intelligent dispute resolution—all in one powerful platform.
+                      <p className="text-lg text-foreground font-semibold">
+                        Here's how the system works:
                       </p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    {/* Quick Overview Cards */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
                       {[
                         {
-                          icon: <Network className="h-12 w-12 text-gold" />,
-                          title: "Direct Connection",
-                          description: "Connect with verified global buyers and sellers instantly"
+                          icon: <Shield className="h-10 w-10 text-gold" />,
+                          title: "Verified Traders",
+                          description: "Strict identity verification for all users"
                         },
                         {
-                          icon: <Shield className="h-12 w-12 text-gold" />,
-                          title: "Secure Transactions",
-                          description: "Escrow protection and verified payment systems"
+                          icon: <Lock className="h-10 w-10 text-gold" />,
+                          title: "Secure Escrow",
+                          description: "Protected transactions with escrow guarantee"
                         },
                         {
-                          icon: <TrendingUp className="h-12 w-12 text-gold" />,
-                          title: "Real-time Pricing",
-                          description: "Live market data and competitive pricing transparency"
-                        },
-                        {
-                          icon: <Users className="h-12 w-12 text-gold" />,
-                          title: "Global Network",
-                          description: "Access to verified suppliers and buyers worldwide"
+                          icon: <Network className="h-10 w-10 text-gold" />,
+                          title: "Global Reach",
+                          description: "Trade across continents and major ports"
                         }
                       ].map((item, index) => (
-                        <Card key={index} className="border-border">
+                        <Card key={index} className="border-border hover:shadow-lg transition-shadow">
                           <CardContent className="p-6 text-center">
                             <div className="flex justify-center mb-4">{item.icon}</div>
                             <h3 className="text-xl font-semibold text-primary mb-3">{item.title}</h3>
@@ -199,55 +198,85 @@ const P2PPlatform = () => {
                     </div>
                   </div>
 
-                  {/* Key Features */}
+                  {/* 7 Key Features */}
                   <div className="bg-muted py-16 -mx-4 px-4 rounded-lg">
                     <div className="container mx-auto">
-                      <h2 className="text-4xl font-bold text-primary text-center mb-12">Platform Features</h2>
+                      <h2 className="text-4xl font-bold text-primary text-center mb-12">How Our P2P System Works</h2>
                       
-                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                      <div className="space-y-8">
                         {[
                           {
-                            icon: <Lock className="h-10 w-10 text-gold" />,
-                            title: "KYC Verification",
-                            description: "Comprehensive identity verification and business validation for all platform participants. Our rigorous KYC process ensures you're always trading with verified, legitimate entities.",
-                            benefits: ["Identity Verification", "Business Documentation", "Credit Checks", "Ongoing Monitoring"]
-                          },
-                          {
+                            number: "1",
                             icon: <Shield className="h-10 w-10 text-gold" />,
-                            title: "Secure Escrow",
-                            description: "Protected payments through our secure escrow system that holds funds until delivery confirmation. Both buyers and sellers are protected throughout the transaction.",
-                            benefits: ["Payment Protection", "Delivery Confirmation", "Automated Release", "Dispute Support"]
+                            title: "Verified Global Users Only",
+                            description: "Every trader on the platform goes through a strict identity and business verification process. This ensures that buyers and sellers are real, trusted, and compliant with international trade standards.",
+                            features: ["Identity verification", "Business documentation", "Compliance checks", "Ongoing monitoring"]
                           },
                           {
-                            icon: <TrendingUp className="h-10 w-10 text-gold" />,
-                            title: "Live Market Data",
-                            description: "Access real-time pricing, market trends, and analytics to make informed trading decisions. Stay ahead with up-to-the-minute market intelligence.",
-                            benefits: ["Real-time Prices", "Market Analytics", "Price Alerts", "Historical Data"]
+                            number: "2",
+                            icon: <ShoppingCart className="h-10 w-10 text-gold" />,
+                            title: "Post Offers or Browse Deals",
+                            description: "Just like a marketplace, registered users can post their own offers or browse offers from sellers worldwide. Full control over trading partners and pricing.",
+                            features: ["Post product offers", "Browse global listings", "Filter by location & specs", "Compare prices"]
                           },
                           {
+                            number: "3",
+                            icon: <Network className="h-10 w-10 text-gold" />,
+                            title: "Smart P2P Matching System",
+                            description: "Our system instantly matches buyers and sellers based on product availability, payment methods, port locations, quality specifications, and order size.",
+                            features: ["Intelligent matching", "Product availability", "Payment preferences", "Location optimization"]
+                          },
+                          {
+                            number: "4",
+                            icon: <Lock className="h-10 w-10 text-gold" />,
+                            title: "Secure Escrow Protection",
+                            description: "We use an escrow-style trade guarantee where sellers lock in product availability and buyers secure funds through the platform. Product or documentation is released only when both sides meet all conditions.",
+                            features: ["Escrow protection", "Funds security", "Delivery confirmation", "Fraud elimination"]
+                          },
+                          {
+                            number: "5",
+                            icon: <Users className="h-10 w-10 text-gold" />,
+                            title: "Real-Time Communication Hub",
+                            description: "A built-in messaging and call feature allows traders to negotiate terms, clarify product specs, share documents safely, and stay updated throughout the transaction.",
+                            features: ["Encrypted messaging", "Document sharing", "Price negotiation", "Real-time updates"]
+                          },
+                          {
+                            number: "6",
                             icon: <CheckCircle className="h-10 w-10 text-gold" />,
-                            title: "Smart Dispute Resolution",
-                            description: "Intelligent dispute resolution system with expert mediators and clear processes to resolve conflicts fairly and efficiently.",
-                            benefits: ["Expert Mediators", "Clear Processes", "Fair Resolution", "Quick Turnaround"]
+                            title: "Trade Completion & Ratings",
+                            description: "Once delivery and payment are completed, both parties rate each other. A transparent reputation score is added to their profile, building trust and long-term trading relationships.",
+                            features: ["Mutual ratings", "Reputation scores", "Trust building", "Performance tracking"]
+                          },
+                          {
+                            number: "7",
+                            icon: <TrendingUp className="h-10 w-10 text-gold" />,
+                            title: "Global Coverage Across Ports & Terminals",
+                            description: "Our P2P platform supports trades across Africa, Middle East, Europe, Asia, and the Americas. From major crude terminals to small regional depots, traders can connect seamlessly.",
+                            features: ["Worldwide coverage", "Major ports", "Regional depots", "Cross-border trades"]
                           }
                         ].map((feature, index) => (
                           <Card key={index} className="border-border hover:shadow-lg transition-shadow">
                             <CardContent className="p-8">
-                              <div className="flex items-start space-x-4 mb-4">
-                                <div className="p-3 bg-gold/10 rounded-lg">{feature.icon}</div>
-                                <div>
-                                  <h3 className="text-2xl font-bold text-primary mb-2">{feature.title}</h3>
+                              <div className="flex items-start space-x-6">
+                                <div className="flex-shrink-0">
+                                  <div className="w-16 h-16 rounded-full bg-gold/20 flex items-center justify-center mb-4">
+                                    <span className="text-2xl font-bold text-gold">{feature.number}</span>
+                                  </div>
+                                  <div className="p-3 bg-gold/10 rounded-lg inline-block">{feature.icon}</div>
+                                </div>
+                                <div className="flex-1">
+                                  <h3 className="text-2xl font-bold text-primary mb-3">{feature.title}</h3>
+                                  <p className="text-foreground mb-6">{feature.description}</p>
+                                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                    {feature.features.map((item, i) => (
+                                      <div key={i} className="flex items-center space-x-2">
+                                        <CheckCircle className="h-4 w-4 text-gold flex-shrink-0" />
+                                        <span className="text-sm text-muted-foreground">{item}</span>
+                                      </div>
+                                    ))}
+                                  </div>
                                 </div>
                               </div>
-                              <p className="text-foreground mb-6">{feature.description}</p>
-                              <div className="grid grid-cols-2 gap-3">
-                                {feature.benefits.map((benefit, i) => (
-                                  <div key={i} className="flex items-center space-x-2">
-                                    <CheckCircle className="h-4 w-4 text-gold flex-shrink-0" />
-                                    <span className="text-sm text-muted-foreground">{benefit}</span>
-                                  </div>
-                                ))}
-                              </div>
                             </CardContent>
                           </Card>
                         ))}
@@ -255,101 +284,65 @@ const P2PPlatform = () => {
                     </div>
                   </div>
 
-                  {/* How It Works */}
+                  {/* Why Traders Love Our System */}
                   <div className="bg-navy text-background py-16 -mx-4 px-4 rounded-lg">
                     <div className="container mx-auto">
-                      <h2 className="text-4xl font-bold text-center mb-12">How It Works</h2>
+                      <h2 className="text-4xl font-bold text-center mb-12">🌟 Why Traders Love Our P2P System</h2>
                       
-                      <div className="max-w-5xl mx-auto space-y-6">
-                        {[
-                          {
-                            step: 1,
-                            title: "Register & Verify",
-                            description: "Create your account and complete KYC verification. Our team reviews your documentation to ensure platform integrity."
-                          },
-                          {
-                            step: 2,
-                            title: "Browse Listings",
-                            description: "Access real-time listings from verified sellers worldwide. Filter by product type, quantity, location, and price."
-                          },
-                          {
-                            step: 3,
-                            title: "Negotiate & Order",
-                            description: "Communicate directly with counterparties, negotiate terms, and place your order with confidence."
-                          },
-                          {
-                            step: 4,
-                            title: "Secure Payment",
-                            description: "Funds are held in secure escrow until delivery is confirmed, protecting both buyer and seller."
-                          },
-                          {
-                            step: 5,
-                            title: "Track & Receive",
-                            description: "Monitor your shipment in real-time through our tracking dashboard. Confirm delivery to release payment."
-                          }
-                        ].map((step) => (
-                          <Card key={step.step} className="bg-navy-light border-gold/20">
-                            <CardContent className="p-6 flex items-start space-x-6">
-                              <div className="w-14 h-14 rounded-full bg-gold flex items-center justify-center flex-shrink-0">
-                                <span className="text-2xl font-bold text-navy">{step.step}</span>
-                              </div>
-                              <div className="flex-1">
-                                <h3 className="text-2xl font-semibold text-gold mb-2">{step.title}</h3>
-                                <p className="text-muted-foreground text-lg">{step.description}</p>
-                              </div>
-                            </CardContent>
-                          </Card>
-                        ))}
+                      <div className="max-w-5xl mx-auto">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                          {[
+                            { title: "No intermediaries", icon: <Users className="h-8 w-8" /> },
+                            { title: "Lower trading costs", icon: <DollarSign className="h-8 w-8" /> },
+                            { title: "Direct global access", icon: <Network className="h-8 w-8" /> },
+                            { title: "Fast negotiation", icon: <Clock className="h-8 w-8" /> },
+                            { title: "Secure transactions", icon: <Shield className="h-8 w-8" /> },
+                            { title: "Transparent verification", icon: <CheckCircle className="h-8 w-8" /> },
+                          ].map((benefit, index) => (
+                            <Card key={index} className="bg-navy-light border-gold/20 hover:border-gold/40 transition-colors">
+                              <CardContent className="p-6 text-center">
+                                <div className="flex justify-center mb-4 text-gold">{benefit.icon}</div>
+                                <h3 className="text-lg font-semibold text-background">{benefit.title}</h3>
+                              </CardContent>
+                            </Card>
+                          ))}
+                        </div>
+                        
+                        <Card className="mt-8 bg-gold/10 border-gold/30">
+                          <CardContent className="p-8 text-center">
+                            <p className="text-xl font-semibold text-background">
+                              Smart matching similar to top crypto P2P systems—adapted for the oil world
+                            </p>
+                          </CardContent>
+                        </Card>
                       </div>
                     </div>
                   </div>
 
-                  {/* Benefits */}
+                  {/* Product Types Supported */}
                   <div>
                     <div className="container mx-auto">
                       <div className="max-w-4xl mx-auto">
-                        <h2 className="text-4xl font-bold text-primary text-center mb-12">Platform Benefits</h2>
+                        <h2 className="text-4xl font-bold text-primary text-center mb-12">Supported Products</h2>
                         
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                          <Card className="border-border">
-                            <CardContent className="p-6">
-                              <h3 className="text-xl font-semibold text-primary mb-4">For Sellers</h3>
-                              <ul className="space-y-3">
-                                {[
-                                  "Access global buyer network",
-                                  "Competitive pricing transparency",
-                                  "Secure payment guarantee",
-                                  "Reduced intermediary costs",
-                                  "Real-time market visibility"
-                                ].map((benefit, i) => (
-                                  <li key={i} className="flex items-start">
-                                    <CheckCircle className="h-5 w-5 text-gold mr-2 mt-0.5 flex-shrink-0" />
-                                    <span className="text-muted-foreground">{benefit}</span>
-                                  </li>
-                                ))}
-                              </ul>
-                            </CardContent>
-                          </Card>
-
-                          <Card className="border-border">
-                            <CardContent className="p-6">
-                              <h3 className="text-xl font-semibold text-primary mb-4">For Buyers</h3>
-                              <ul className="space-y-3">
-                                {[
-                                  "Verified supplier network",
-                                  "Best market prices",
-                                  "Payment protection",
-                                  "Quality assurance",
-                                  "Simplified procurement"
-                                ].map((benefit, i) => (
-                                  <li key={i} className="flex items-start">
-                                    <CheckCircle className="h-5 w-5 text-gold mr-2 mt-0.5 flex-shrink-0" />
-                                    <span className="text-muted-foreground">{benefit}</span>
-                                  </li>
-                                ))}
-                              </ul>
-                            </CardContent>
-                          </Card>
+                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                          {[
+                            "Crude Oil",
+                            "Refined Products",
+                            "LPG",
+                            "Diesel",
+                            "Gasoline",
+                            "Jet Fuel",
+                            "Lubricants",
+                            "Petroleum Commodities"
+                          ].map((product, i) => (
+                            <Card key={i} className="border-border hover:shadow-md transition-shadow">
+                              <CardContent className="p-4 text-center">
+                                <Package className="h-6 w-6 text-gold mx-auto mb-2" />
+                                <span className="text-sm font-medium text-foreground">{product}</span>
+                              </CardContent>
+                            </Card>
+                          ))}
                         </div>
                       </div>
                     </div>
@@ -358,14 +351,17 @@ const P2PPlatform = () => {
                   {/* CTA */}
                   <div className="bg-gradient-to-br from-navy via-navy-light to-navy text-background py-16 -mx-4 px-4 rounded-lg">
                     <div className="container mx-auto text-center">
-                      <h2 className="text-4xl md:text-5xl font-bold mb-6">
-                        Ready to Transform Your Energy Trading?
-                      </h2>
-                      <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-                        Join thousands of verified traders on the world's most advanced P2P energy exchange platform
+                      <h2 className="text-4xl md:text-5xl font-bold mb-6">🔥 The Future of Oil Trading Is Peer-to-Peer</h2>
+                      <p className="text-xl mb-8 max-w-3xl mx-auto text-muted-foreground">
+                        We bring the speed, simplicity and transparency of digital marketplaces into the global oil industry — while maintaining the highest level of security and compliance.
                       </p>
-                      <Button size="lg" className="bg-gold hover:bg-gold-light text-navy font-semibold" onClick={() => setActiveTab("dashboard")}>
-                        Get Started Today <ArrowRight className="ml-2 h-5 w-5" />
+                      <Button 
+                        size="lg" 
+                        className="bg-gold hover:bg-gold/90 text-navy font-semibold text-lg px-8 py-6"
+                        onClick={() => setActiveTab("dashboard")}
+                      >
+                        Start Trading Today
+                        <ArrowRight className="ml-2 h-5 w-5" />
                       </Button>
                       <p className="mt-6 text-sm text-muted-foreground">
                         Platform access subject to KYC verification • Available globally
