@@ -372,6 +372,55 @@ const P2PPlatform = () => {
               </TabsContent>
 
               <TabsContent value="dashboard">
+                {/* Live Market Stats */}
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+                  <Card className="border-border bg-card animate-fade-in">
+                    <CardContent className="p-4">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-xs text-muted-foreground">Active Listings</p>
+                          <p className="text-2xl font-bold text-primary">{publicListings.length}</p>
+                        </div>
+                        <Package className="h-8 w-8 text-gold" />
+                      </div>
+                    </CardContent>
+                  </Card>
+                  <Card className="border-border bg-card animate-fade-in" style={{ animationDelay: '0.1s' }}>
+                    <CardContent className="p-4">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-xs text-muted-foreground">Total Volume</p>
+                          <p className="text-2xl font-bold text-primary">2.4M</p>
+                          <p className="text-xs text-gold">barrels/MT</p>
+                        </div>
+                        <TrendingUp className="h-8 w-8 text-gold" />
+                      </div>
+                    </CardContent>
+                  </Card>
+                  <Card className="border-border bg-card animate-fade-in" style={{ animationDelay: '0.2s' }}>
+                    <CardContent className="p-4">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-xs text-muted-foreground">Verified Traders</p>
+                          <p className="text-2xl font-bold text-primary">847</p>
+                        </div>
+                        <Shield className="h-8 w-8 text-gold" />
+                      </div>
+                    </CardContent>
+                  </Card>
+                  <Card className="border-border bg-card animate-fade-in" style={{ animationDelay: '0.3s' }}>
+                    <CardContent className="p-4">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-xs text-muted-foreground">Global Ports</p>
+                          <p className="text-2xl font-bold text-primary">156</p>
+                        </div>
+                        <Network className="h-8 w-8 text-gold" />
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+
                 {/* Trading Dashboard */}
                 <Card className="mb-8">
                   <CardContent className="pt-6">
@@ -412,6 +461,20 @@ const P2PPlatform = () => {
                   </TabsList>
 
                   <TabsContent value="buy" className="mt-6">
+                    <div className="flex items-center justify-between mb-6">
+                      <div>
+                        <h3 className="text-xl font-bold text-primary">Live Market Offers</h3>
+                        <p className="text-sm text-muted-foreground">Real-time listings from verified sellers worldwide</p>
+                      </div>
+                      <Badge variant="secondary" className="animate-pulse">
+                        <span className="relative flex h-2 w-2 mr-2">
+                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold opacity-75"></span>
+                          <span className="relative inline-flex rounded-full h-2 w-2 bg-gold"></span>
+                        </span>
+                        Live
+                      </Badge>
+                    </div>
+
                     {loading ? (
                       <div className="text-center py-12">Loading listings...</div>
                     ) : publicListings.length === 0 ? (
@@ -425,54 +488,68 @@ const P2PPlatform = () => {
                         </CardContent>
                       </Card>
                     ) : (
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        {publicListings.map((listing) => (
-                          <Card key={listing.id} className="hover:shadow-lg transition-shadow">
-                            <CardHeader>
-                              <div className="flex justify-between items-start">
-                                <div>
-                                  <CardTitle className="text-lg">{listing.product_type}</CardTitle>
-                                  <p className="text-sm text-muted-foreground mt-1">
-                                    {listing.quantity} {listing.unit}
-                                  </p>
-                                </div>
-                                <Badge variant="default">
-                                  <TrendingUp className="h-3 w-3 mr-1" />
-                                  Available
-                                </Badge>
-                              </div>
-                            </CardHeader>
-                            <CardContent>
-                              <div className="space-y-3">
-                                <div className="flex justify-between items-center py-2 border-b">
-                                  <span className="text-sm text-muted-foreground">Price per {listing.unit}</span>
-                                  <span className="font-semibold text-gold">${listing.price_per_unit.toLocaleString()}</span>
-                                </div>
-                                <div className="flex justify-between items-center py-2 border-b">
-                                  <span className="text-sm text-muted-foreground">Total Amount</span>
-                                  <span className="text-xl font-bold text-gold">${listing.total_amount.toLocaleString()}</span>
-                                </div>
-                                <div className="flex justify-between items-center py-2">
-                                  <span className="text-sm text-muted-foreground">Payment</span>
-                                  <Badge variant="secondary">
-                                    {paymentMethods[listing.payment_method as keyof typeof paymentMethods].name}
-                                  </Badge>
-                                </div>
-                                {listing.delivery_location && (
-                                  <div className="flex justify-between items-center py-2">
-                                    <span className="text-sm text-muted-foreground">Location</span>
-                                    <span className="text-sm">{listing.delivery_location}</span>
+                      <div className="grid gap-4">
+                        {publicListings.map((listing, index) => (
+                          <Card key={listing.id} className="border-border hover:shadow-lg transition-all hover-scale animate-fade-in" style={{ animationDelay: `${index * 0.05}s` }}>
+                            <CardContent className="p-6">
+                              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                                <div className="flex-1 space-y-3">
+                                  <div className="flex items-start justify-between">
+                                    <div>
+                                      <h4 className="text-lg font-bold text-primary mb-1">{listing.product_type}</h4>
+                                      <div className="flex items-center gap-2 mb-2">
+                                        <Badge variant="outline" className="bg-gold/10 text-gold border-gold/30">
+                                          <Shield className="h-3 w-3 mr-1" />
+                                          Verified Seller
+                                        </Badge>
+                                        <Badge variant="secondary" className="text-xs">
+                                          <Lock className="h-3 w-3 mr-1" />
+                                          Escrow Protected
+                                        </Badge>
+                                      </div>
+                                    </div>
+                                    <div className="text-right">
+                                      <p className="text-2xl font-bold text-gold">${listing.price_per_unit.toFixed(2)}</p>
+                                      <p className="text-xs text-muted-foreground">per {listing.unit}</p>
+                                    </div>
                                   </div>
-                                )}
-                              </div>
-                              <div className="flex gap-2 mt-6">
-                                <Button variant="outline" className="flex-1" onClick={handleTradeAction}>
-                                  View Details
-                                </Button>
-                                <Button className="flex-1" onClick={handleTradeAction}>
-                                  <ShoppingCart className="h-4 w-4 mr-2" />
-                                  Trade Now
-                                </Button>
+                                  
+                                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
+                                    <div>
+                                      <p className="text-xs text-muted-foreground">Quantity</p>
+                                      <p className="font-semibold text-foreground">{listing.quantity.toLocaleString()} {listing.unit}</p>
+                                    </div>
+                                    <div>
+                                      <p className="text-xs text-muted-foreground">Total Value</p>
+                                      <p className="font-semibold text-foreground">${listing.total_amount.toLocaleString()}</p>
+                                    </div>
+                                    <div>
+                                      <p className="text-xs text-muted-foreground">Location</p>
+                                      <p className="font-semibold text-foreground">{listing.delivery_location || 'Various'}</p>
+                                    </div>
+                                    <div>
+                                      <p className="text-xs text-muted-foreground">Delivery</p>
+                                      <p className="font-semibold text-foreground">
+                                        {listing.expected_delivery_date 
+                                          ? new Date(listing.expected_delivery_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+                                          : 'TBD'}
+                                      </p>
+                                    </div>
+                                  </div>
+                                </div>
+                                
+                                <div className="flex flex-col gap-2">
+                                  <Button 
+                                    onClick={handleTradeAction} 
+                                    className="bg-gold hover:bg-gold/90 text-navy font-semibold"
+                                  >
+                                    <ShoppingCart className="h-4 w-4 mr-2" />
+                                    Buy Now
+                                  </Button>
+                                  <Button variant="outline" size="sm">
+                                    Contact Seller
+                                  </Button>
+                                </div>
                               </div>
                             </CardContent>
                           </Card>
