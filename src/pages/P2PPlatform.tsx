@@ -13,6 +13,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
+import TradeDialog from "@/components/TradeDialog";
 
 interface Trade {
   id: string;
@@ -33,8 +34,10 @@ const P2PPlatform = () => {
   const [trades, setTrades] = useState<Trade[]>([]);
   const [publicListings, setPublicListings] = useState<Trade[]>([]);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState("overview");
+  const [activeTab, setActiveTab] = useState("dashboard");
   const [tradingTab, setTradingTab] = useState("buy");
+  const [selectedTrade, setSelectedTrade] = useState<Trade | null>(null);
+  const [tradeDialogOpen, setTradeDialogOpen] = useState(false);
   const { user } = useAuth();
   const navigate = useNavigate();
 
@@ -78,12 +81,14 @@ const P2PPlatform = () => {
     }
   };
 
-  const handleTradeAction = () => {
+  const handleTradeAction = (trade: Trade) => {
     if (!user) {
       toast.error('Please login to trade');
       navigate('/auth');
       return;
     }
+    setSelectedTrade(trade);
+    setTradeDialogOpen(true);
   };
 
   const statusIcons = {
@@ -538,18 +543,18 @@ const P2PPlatform = () => {
                                   </div>
                                 </div>
                                 
-                                <div className="flex flex-col gap-2">
-                                  <Button 
-                                    onClick={handleTradeAction} 
-                                    className="bg-gold hover:bg-gold/90 text-navy font-semibold"
-                                  >
-                                    <ShoppingCart className="h-4 w-4 mr-2" />
-                                    Buy Now
-                                  </Button>
-                                  <Button variant="outline" size="sm">
-                                    Contact Seller
-                                  </Button>
-                                </div>
+                                 <div className="flex flex-col gap-2">
+                                   <Button 
+                                     onClick={() => handleTradeAction(listing)} 
+                                     className="bg-gold hover:bg-gold/90 text-navy font-semibold"
+                                   >
+                                     <ShoppingCart className="h-4 w-4 mr-2" />
+                                     Buy Now
+                                   </Button>
+                                   <Button variant="outline" size="sm">
+                                     Contact Seller
+                                   </Button>
+                                 </div>
                               </div>
                             </CardContent>
                           </Card>
@@ -679,8 +684,15 @@ const P2PPlatform = () => {
           </div>
         </section>
       </div>
-
+      
       <Footer />
+
+      <TradeDialog
+        open={tradeDialogOpen}
+        onOpenChange={setTradeDialogOpen}
+        trade={selectedTrade}
+        userId={user?.id || ""}
+      />
     </div>
   );
 };
