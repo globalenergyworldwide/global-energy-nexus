@@ -41,6 +41,51 @@ const P2PPlatform = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
 
+  const [stats, setStats] = useState({
+    activeListings: 89,
+    totalVolume: "3.2M",
+    verifiedTraders: 267,
+    globalPorts: 178
+  });
+
+  // Fluctuate numbers to simulate real-time activity
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setStats(prev => ({
+        activeListings: 89 + Math.floor(Math.random() * 5) - 2, // 87-93
+        totalVolume: (3.2 + (Math.random() * 0.3 - 0.15)).toFixed(1) + "M", // 3.05-3.35M
+        verifiedTraders: 267 + Math.floor(Math.random() * 7) - 3, // 264-273
+        globalPorts: 178 + Math.floor(Math.random() * 4) - 2 // 176-181
+      }));
+    }, 4000); // Update every 4 seconds
+
+    return () => clearInterval(interval);
+  }, []);
+
+  // Mock data for demonstration
+  const mockTrades: any[] = [
+    { id: '1', product_type: 'Crude Oil - Brent', quantity: 50000, unit: 'barrels', price_per_unit: 85.40, total_amount: 4270000, delivery_location: 'Rotterdam Port, Netherlands', expected_delivery_date: '2024-02-15', status: 'pending', escrow_status: 'available', created_at: new Date().toISOString() },
+    { id: '2', product_type: 'Diesel - Ultra Low Sulfur', quantity: 75000, unit: 'barrels', price_per_unit: 92.15, total_amount: 6911250, delivery_location: 'Singapore Port', expected_delivery_date: '2024-02-20', status: 'pending', escrow_status: 'available', created_at: new Date().toISOString() },
+    { id: '3', product_type: 'Jet Fuel - A1', quantity: 30000, unit: 'barrels', price_per_unit: 98.50, total_amount: 2955000, delivery_location: 'Dubai International Airport', expected_delivery_date: '2024-02-18', status: 'pending', escrow_status: 'available', created_at: new Date().toISOString() },
+    { id: '4', product_type: 'LPG - Propane Mix', quantity: 25000, unit: 'tons', price_per_unit: 680, total_amount: 17000000, delivery_location: 'Tokyo Bay, Japan', expected_delivery_date: '2024-02-25', status: 'pending', escrow_status: 'available', created_at: new Date().toISOString() },
+    { id: '5', product_type: 'Crude Oil - WTI', quantity: 100000, unit: 'barrels', price_per_unit: 82.30, total_amount: 8230000, delivery_location: 'Houston Port, USA', expected_delivery_date: '2024-02-12', status: 'pending', escrow_status: 'available', created_at: new Date().toISOString() },
+    { id: '6', product_type: 'Heating Oil', quantity: 40000, unit: 'barrels', price_per_unit: 88.75, total_amount: 3550000, delivery_location: 'New York Harbor, USA', expected_delivery_date: '2024-02-22', status: 'pending', escrow_status: 'available', created_at: new Date().toISOString() },
+    { id: '7', product_type: 'Crude Oil - Dubai', quantity: 60000, unit: 'barrels', price_per_unit: 84.20, total_amount: 5052000, delivery_location: 'Jebel Ali Port, UAE', expected_delivery_date: '2024-02-28', status: 'pending', escrow_status: 'available', created_at: new Date().toISOString() },
+    { id: '8', product_type: 'Marine Fuel Oil', quantity: 20000, unit: 'tons', price_per_unit: 520, total_amount: 10400000, delivery_location: 'Antwerp Port, Belgium', expected_delivery_date: '2024-02-17', status: 'pending', escrow_status: 'available', created_at: new Date().toISOString() },
+    { id: '9', product_type: 'Gasoline - Premium 93', quantity: 50000, unit: 'barrels', price_per_unit: 95.60, total_amount: 4780000, delivery_location: 'Mumbai Port, India', expected_delivery_date: '2024-02-19', status: 'pending', escrow_status: 'available', created_at: new Date().toISOString() },
+    { id: '10', product_type: 'Diesel - B20 Blend', quantity: 35000, unit: 'barrels', price_per_unit: 89.40, total_amount: 3129000, delivery_location: 'Santos Port, Brazil', expected_delivery_date: '2024-02-21', status: 'pending', escrow_status: 'available', created_at: new Date().toISOString() },
+    { id: '11', product_type: 'Crude Oil - Oman', quantity: 80000, unit: 'barrels', price_per_unit: 83.90, total_amount: 6712000, delivery_location: 'Port of Sohar, Oman', expected_delivery_date: '2024-02-16', status: 'pending', escrow_status: 'available', created_at: new Date().toISOString() },
+    { id: '12', product_type: 'Jet Fuel - JP-8', quantity: 25000, unit: 'barrels', price_per_unit: 99.80, total_amount: 2495000, delivery_location: 'Seoul Incheon Airport', expected_delivery_date: '2024-02-24', status: 'pending', escrow_status: 'available', created_at: new Date().toISOString() },
+    { id: '13', product_type: 'LNG - Liquefied Natural Gas', quantity: 15000, unit: 'tons', price_per_unit: 1250, total_amount: 18750000, delivery_location: 'Yokohama Port, Japan', expected_delivery_date: '2024-03-01', status: 'pending', escrow_status: 'available', created_at: new Date().toISOString() },
+    { id: '14', product_type: 'Crude Oil - Bonny Light', quantity: 70000, unit: 'barrels', price_per_unit: 86.50, total_amount: 6055000, delivery_location: 'Lagos Port, Nigeria', expected_delivery_date: '2024-02-23', status: 'pending', escrow_status: 'available', created_at: new Date().toISOString() },
+    { id: '15', product_type: 'Kerosene', quantity: 30000, unit: 'barrels', price_per_unit: 91.20, total_amount: 2736000, delivery_location: 'Cape Town Port, South Africa', expected_delivery_date: '2024-02-26', status: 'pending', escrow_status: 'available', created_at: new Date().toISOString() },
+    { id: '16', product_type: 'Crude Oil - Urals', quantity: 90000, unit: 'barrels', price_per_unit: 81.70, total_amount: 7353000, delivery_location: 'Novorossiysk Port, Russia', expected_delivery_date: '2024-02-14', status: 'pending', escrow_status: 'available', created_at: new Date().toISOString() },
+    { id: '17', product_type: 'Naphtha', quantity: 45000, unit: 'barrels', price_per_unit: 87.30, total_amount: 3928500, delivery_location: 'Busan Port, South Korea', expected_delivery_date: '2024-02-27', status: 'pending', escrow_status: 'available', created_at: new Date().toISOString() },
+    { id: '18', product_type: 'Bitumen', quantity: 10000, unit: 'tons', price_per_unit: 420, total_amount: 4200000, delivery_location: 'Alexandria Port, Egypt', expected_delivery_date: '2024-03-02', status: 'pending', escrow_status: 'available', created_at: new Date().toISOString() },
+    { id: '19', product_type: 'Crude Oil - Maya', quantity: 65000, unit: 'barrels', price_per_unit: 79.80, total_amount: 5187000, delivery_location: 'Veracruz Port, Mexico', expected_delivery_date: '2024-02-20', status: 'pending', escrow_status: 'available', created_at: new Date().toISOString() },
+    { id: '20', product_type: 'Gasoline - Regular 87', quantity: 55000, unit: 'barrels', price_per_unit: 90.25, total_amount: 4963750, delivery_location: 'Los Angeles Port, USA', expected_delivery_date: '2024-02-25', status: 'pending', escrow_status: 'available', created_at: new Date().toISOString() }
+  ];
+
   useEffect(() => {
     fetchPublicListings();
     if (user) {
@@ -59,8 +104,10 @@ const P2PPlatform = () => {
     
     if (error) {
       toast.error('Failed to load listings');
+      setPublicListings(mockTrades);
     } else {
-      setPublicListings(data || []);
+      // Use mock data if no real listings, otherwise use real data
+      setPublicListings(data && data.length > 0 ? data : mockTrades);
     }
     setLoading(false);
   };
@@ -390,7 +437,7 @@ const P2PPlatform = () => {
                       <div className="flex items-center justify-between">
                         <div>
                           <p className="text-xs text-muted-foreground">Active Listings</p>
-                          <p className="text-2xl font-bold text-primary">{publicListings.length}</p>
+                          <p className="text-2xl font-bold text-primary">{stats.activeListings}</p>
                           <Badge variant="secondary" className="mt-1 text-xs">
                             <span className="relative flex h-2 w-2 mr-1">
                               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold opacity-75"></span>
@@ -408,7 +455,7 @@ const P2PPlatform = () => {
                       <div className="flex items-center justify-between">
                         <div>
                           <p className="text-xs text-muted-foreground">Total Volume</p>
-                          <p className="text-2xl font-bold text-primary">2.4M</p>
+                          <p className="text-2xl font-bold text-primary">{stats.totalVolume}</p>
                           <p className="text-xs text-gold">barrels/MT</p>
                         </div>
                         <TrendingUp className="h-8 w-8 text-gold" />
@@ -420,7 +467,7 @@ const P2PPlatform = () => {
                       <div className="flex items-center justify-between">
                         <div>
                           <p className="text-xs text-muted-foreground">Verified Traders</p>
-                          <p className="text-2xl font-bold text-primary">847</p>
+                          <p className="text-2xl font-bold text-primary">{stats.verifiedTraders}</p>
                           <Badge variant="outline" className="mt-1 text-xs bg-gold/10 border-gold/30">
                             <Shield className="h-3 w-3 mr-1" />
                             KYC Verified
@@ -435,7 +482,7 @@ const P2PPlatform = () => {
                       <div className="flex items-center justify-between">
                         <div>
                           <p className="text-xs text-muted-foreground">Global Ports</p>
-                          <p className="text-2xl font-bold text-primary">156</p>
+                          <p className="text-2xl font-bold text-primary">{stats.globalPorts}</p>
                           <p className="text-xs text-muted-foreground">5 continents</p>
                         </div>
                         <Network className="h-8 w-8 text-gold" />
