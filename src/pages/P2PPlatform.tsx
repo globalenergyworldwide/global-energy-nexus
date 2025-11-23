@@ -377,20 +377,33 @@ const P2PPlatform = () => {
               </TabsContent>
 
               <TabsContent value="dashboard">
+                {/* Title */}
+                <div className="mb-8 text-center">
+                  <h2 className="text-4xl font-bold text-primary mb-3">Trading Dashboard</h2>
+                  <p className="text-lg text-muted-foreground">Live global oil marketplace with verified traders</p>
+                </div>
+
                 {/* Live Market Stats */}
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-                  <Card className="border-border bg-card animate-fade-in">
+                  <Card className="border-border bg-card animate-fade-in hover-scale">
                     <CardContent className="p-4">
                       <div className="flex items-center justify-between">
                         <div>
                           <p className="text-xs text-muted-foreground">Active Listings</p>
                           <p className="text-2xl font-bold text-primary">{publicListings.length}</p>
+                          <Badge variant="secondary" className="mt-1 text-xs">
+                            <span className="relative flex h-2 w-2 mr-1">
+                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold opacity-75"></span>
+                              <span className="relative inline-flex rounded-full h-2 w-2 bg-gold"></span>
+                            </span>
+                            Live
+                          </Badge>
                         </div>
                         <Package className="h-8 w-8 text-gold" />
                       </div>
                     </CardContent>
                   </Card>
-                  <Card className="border-border bg-card animate-fade-in" style={{ animationDelay: '0.1s' }}>
+                  <Card className="border-border bg-card animate-fade-in hover-scale" style={{ animationDelay: '0.1s' }}>
                     <CardContent className="p-4">
                       <div className="flex items-center justify-between">
                         <div>
@@ -402,23 +415,28 @@ const P2PPlatform = () => {
                       </div>
                     </CardContent>
                   </Card>
-                  <Card className="border-border bg-card animate-fade-in" style={{ animationDelay: '0.2s' }}>
+                  <Card className="border-border bg-card animate-fade-in hover-scale" style={{ animationDelay: '0.2s' }}>
                     <CardContent className="p-4">
                       <div className="flex items-center justify-between">
                         <div>
                           <p className="text-xs text-muted-foreground">Verified Traders</p>
                           <p className="text-2xl font-bold text-primary">847</p>
+                          <Badge variant="outline" className="mt-1 text-xs bg-gold/10 border-gold/30">
+                            <Shield className="h-3 w-3 mr-1" />
+                            KYC Verified
+                          </Badge>
                         </div>
                         <Shield className="h-8 w-8 text-gold" />
                       </div>
                     </CardContent>
                   </Card>
-                  <Card className="border-border bg-card animate-fade-in" style={{ animationDelay: '0.3s' }}>
+                  <Card className="border-border bg-card animate-fade-in hover-scale" style={{ animationDelay: '0.3s' }}>
                     <CardContent className="p-4">
                       <div className="flex items-center justify-between">
                         <div>
                           <p className="text-xs text-muted-foreground">Global Ports</p>
                           <p className="text-2xl font-bold text-primary">156</p>
+                          <p className="text-xs text-muted-foreground">5 continents</p>
                         </div>
                         <Network className="h-8 w-8 text-gold" />
                       </div>
@@ -426,259 +444,253 @@ const P2PPlatform = () => {
                   </Card>
                 </div>
 
-                {/* Trading Dashboard */}
-                <Card className="mb-8">
-                  <CardContent className="pt-6">
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                      <div className="text-center">
-                        <div className="h-16 w-16 rounded-full bg-gold/10 flex items-center justify-center mx-auto mb-3">
-                          <DollarSign className="h-8 w-8 text-gold" />
-                        </div>
-                        <h3 className="font-semibold mb-2">USDT Payments</h3>
-                        <p className="text-sm text-muted-foreground">Primary payment method - Fast & secure crypto payments</p>
-                        <Badge variant="default" className="mt-2">Available Now</Badge>
-                      </div>
-                      <div className="text-center">
-                        <div className="h-16 w-16 rounded-full bg-muted flex items-center justify-center mx-auto mb-3">
-                          <Lock className="h-8 w-8 text-muted-foreground" />
-                        </div>
-                        <h3 className="font-semibold mb-2">Wire Transfer</h3>
-                        <p className="text-sm text-muted-foreground">International wire transfers for large transactions</p>
-                        <Badge variant="secondary" className="mt-2">Coming Soon</Badge>
-                      </div>
-                      <div className="text-center">
-                        <div className="h-16 w-16 rounded-full bg-muted flex items-center justify-center mx-auto mb-3">
-                          <Lock className="h-8 w-8 text-muted-foreground" />
-                        </div>
-                        <h3 className="font-semibold mb-2">Bank Transfer</h3>
-                        <p className="text-sm text-muted-foreground">Direct bank-to-bank transfers</p>
-                        <Badge variant="secondary" className="mt-2">Coming Soon</Badge>
-                      </div>
+                {/* Live Market Offers Header */}
+                <div className="mb-6">
+                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+                    <div>
+                      <h3 className="text-2xl font-bold text-primary flex items-center gap-2">
+                        Live Market Offers
+                        <Badge variant="secondary" className="animate-pulse">
+                          <span className="relative flex h-2 w-2 mr-2">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-2 w-2 bg-gold"></span>
+                          </span>
+                          Live
+                        </Badge>
+                      </h3>
+                      <p className="text-sm text-muted-foreground">Real-time listings from verified sellers worldwide</p>
                     </div>
-                  </CardContent>
-                </Card>
-
-                <Tabs value={tradingTab} onValueChange={setTradingTab} className="w-full">
-                  <TabsList className="grid w-full grid-cols-3">
-                    <TabsTrigger value="buy">Buy</TabsTrigger>
-                    <TabsTrigger value="sell">Sell</TabsTrigger>
-                    <TabsTrigger value="my-trades">My Trades</TabsTrigger>
-                  </TabsList>
-
-                  <TabsContent value="buy" className="mt-6">
-                    <div className="flex items-center justify-between mb-6">
-                      <div>
-                        <h3 className="text-xl font-bold text-primary">Live Market Offers</h3>
-                        <p className="text-sm text-muted-foreground">Real-time listings from verified sellers worldwide</p>
+                  </div>
+                  
+                  {/* Payment Methods Info */}
+                  <Card className="bg-muted/50 border-border">
+                    <CardContent className="p-4">
+                      <div className="flex flex-wrap items-center gap-6 justify-center">
+                        <div className="flex items-center gap-2">
+                          <div className="h-10 w-10 rounded-full bg-gold/10 flex items-center justify-center">
+                            <DollarSign className="h-5 w-5 text-gold" />
+                          </div>
+                          <div>
+                            <p className="text-xs text-muted-foreground">Primary Payment</p>
+                            <p className="font-semibold text-sm">USDT Crypto</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <div className="h-10 w-10 rounded-full bg-gold/10 flex items-center justify-center">
+                            <Lock className="h-5 w-5 text-gold" />
+                          </div>
+                          <div>
+                            <p className="text-xs text-muted-foreground">Security</p>
+                            <p className="font-semibold text-sm">Escrow Protected</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <div className="h-10 w-10 rounded-full bg-gold/10 flex items-center justify-center">
+                            <Shield className="h-5 w-5 text-gold" />
+                          </div>
+                          <div>
+                            <p className="text-xs text-muted-foreground">All Sellers</p>
+                            <p className="font-semibold text-sm">KYC Verified</p>
+                          </div>
+                        </div>
                       </div>
-                      <Badge variant="secondary" className="animate-pulse">
-                        <span className="relative flex h-2 w-2 mr-2">
-                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold opacity-75"></span>
-                          <span className="relative inline-flex rounded-full h-2 w-2 bg-gold"></span>
-                        </span>
-                        Live
-                      </Badge>
-                    </div>
+                    </CardContent>
+                  </Card>
+                </div>
 
-                    {loading ? (
-                      <div className="text-center py-12">Loading listings...</div>
-                    ) : publicListings.length === 0 ? (
-                      <Card>
-                        <CardContent className="pt-6">
-                          <div className="text-center py-12">
-                            <ShoppingCart className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
-                            <h3 className="text-xl font-semibold mb-2">No Available Listings</h3>
-                            <p className="text-muted-foreground">Check back soon for new trading opportunities</p>
+                {loading ? (
+                  <div className="text-center py-12">
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gold mx-auto mb-4"></div>
+                    <p className="text-muted-foreground">Loading live market data...</p>
+                  </div>
+                ) : publicListings.length === 0 ? (
+                  <Card>
+                    <CardContent className="pt-6">
+                      <div className="text-center py-12">
+                        <ShoppingCart className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
+                        <h3 className="text-xl font-semibold mb-2">No Available Listings</h3>
+                        <p className="text-muted-foreground">Check back soon for new trading opportunities</p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ) : (
+                  <div className="grid gap-4">
+                    {publicListings.map((listing, index) => (
+                      <Card key={listing.id} className="border-border hover:shadow-lg transition-all hover-scale animate-fade-in group" style={{ animationDelay: `${index * 0.05}s` }}>
+                        <CardContent className="p-6">
+                          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                            <div className="flex-1 space-y-3">
+                              <div className="flex items-start justify-between">
+                                <div className="flex-1">
+                                  <div className="flex items-center gap-2 mb-2">
+                                    <h4 className="text-xl font-bold text-primary">{listing.product_type}</h4>
+                                    <Badge variant="outline" className="bg-gold/10 text-gold border-gold/30 animate-fade-in">
+                                      <Shield className="h-3 w-3 mr-1" />
+                                      Verified
+                                    </Badge>
+                                  </div>
+                                  <div className="flex items-center gap-2">
+                                    <Badge variant="secondary" className="text-xs">
+                                      <Lock className="h-3 w-3 mr-1" />
+                                      Escrow Protected
+                                    </Badge>
+                                    <Badge variant="outline" className="text-xs">
+                                      <Clock className="h-3 w-3 mr-1" />
+                                      {listing.expected_delivery_date 
+                                        ? `Delivery ${new Date(listing.expected_delivery_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`
+                                        : 'Delivery TBD'}
+                                    </Badge>
+                                  </div>
+                                </div>
+                                <div className="text-right">
+                                  <p className="text-3xl font-bold text-gold">${listing.price_per_unit.toFixed(2)}</p>
+                                  <p className="text-xs text-muted-foreground">per {listing.unit}</p>
+                                  <Badge variant="secondary" className="mt-1 text-xs">USDT</Badge>
+                                </div>
+                              </div>
+                              
+                              <div className="grid grid-cols-2 md:grid-cols-3 gap-4 p-4 bg-muted/50 rounded-lg">
+                                <div>
+                                  <p className="text-xs text-muted-foreground mb-1">Available Quantity</p>
+                                  <p className="font-bold text-foreground text-lg">{listing.quantity.toLocaleString()} {listing.unit}</p>
+                                </div>
+                                <div>
+                                  <p className="text-xs text-muted-foreground mb-1">Total Value</p>
+                                  <p className="font-bold text-foreground text-lg">${listing.total_amount.toLocaleString()}</p>
+                                </div>
+                                <div>
+                                  <p className="text-xs text-muted-foreground mb-1">Delivery Port</p>
+                                  <p className="font-bold text-foreground text-sm">{listing.delivery_location || 'International'}</p>
+                                </div>
+                              </div>
+                            </div>
+                            
+                            <div className="flex flex-col gap-2 min-w-[140px]">
+                              <Button 
+                                onClick={() => handleTradeAction(listing)} 
+                                className="bg-gold hover:bg-gold/90 text-navy font-bold group-hover:scale-105 transition-transform"
+                                size="lg"
+                              >
+                                <ShoppingCart className="h-4 w-4 mr-2" />
+                                Buy Now
+                              </Button>
+                              <Button variant="outline" size="sm" className="font-semibold">
+                                Contact Seller
+                              </Button>
+                            </div>
                           </div>
                         </CardContent>
                       </Card>
-                    ) : (
-                      <div className="grid gap-4">
-                        {publicListings.map((listing, index) => (
-                          <Card key={listing.id} className="border-border hover:shadow-lg transition-all hover-scale animate-fade-in" style={{ animationDelay: `${index * 0.05}s` }}>
-                            <CardContent className="p-6">
-                              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                                <div className="flex-1 space-y-3">
-                                  <div className="flex items-start justify-between">
-                                    <div>
-                                      <h4 className="text-lg font-bold text-primary mb-1">{listing.product_type}</h4>
-                                      <div className="flex items-center gap-2 mb-2">
-                                        <Badge variant="outline" className="bg-gold/10 text-gold border-gold/30">
-                                          <Shield className="h-3 w-3 mr-1" />
-                                          Verified Seller
-                                        </Badge>
-                                        <Badge variant="secondary" className="text-xs">
-                                          <Lock className="h-3 w-3 mr-1" />
-                                          Escrow Protected
-                                        </Badge>
-                                      </div>
-                                    </div>
-                                    <div className="text-right">
-                                      <p className="text-2xl font-bold text-gold">${listing.price_per_unit.toFixed(2)}</p>
-                                      <p className="text-xs text-muted-foreground">per {listing.unit}</p>
-                                    </div>
-                                  </div>
-                                  
-                                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
-                                    <div>
-                                      <p className="text-xs text-muted-foreground">Quantity</p>
-                                      <p className="font-semibold text-foreground">{listing.quantity.toLocaleString()} {listing.unit}</p>
-                                    </div>
-                                    <div>
-                                      <p className="text-xs text-muted-foreground">Total Value</p>
-                                      <p className="font-semibold text-foreground">${listing.total_amount.toLocaleString()}</p>
-                                    </div>
-                                    <div>
-                                      <p className="text-xs text-muted-foreground">Location</p>
-                                      <p className="font-semibold text-foreground">{listing.delivery_location || 'Various'}</p>
-                                    </div>
-                                    <div>
-                                      <p className="text-xs text-muted-foreground">Delivery</p>
-                                      <p className="font-semibold text-foreground">
-                                        {listing.expected_delivery_date 
-                                          ? new Date(listing.expected_delivery_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
-                                          : 'TBD'}
-                                      </p>
-                                    </div>
-                                  </div>
-                                </div>
-                                
-                                 <div className="flex flex-col gap-2">
-                                   <Button 
-                                     onClick={() => handleTradeAction(listing)} 
-                                     className="bg-gold hover:bg-gold/90 text-navy font-semibold"
-                                   >
-                                     <ShoppingCart className="h-4 w-4 mr-2" />
-                                     Buy Now
-                                   </Button>
-                                   <Button variant="outline" size="sm">
-                                     Contact Seller
-                                   </Button>
-                                 </div>
-                              </div>
-                            </CardContent>
-                          </Card>
-                        ))}
-                      </div>
-                    )}
-                  </TabsContent>
+                    ))}
+                  </div>
+                )}
 
-                  <TabsContent value="sell" className="mt-6">
-                    <Card>
-                      <CardContent className="pt-6">
+                {/* Additional Tabs */}
+                <Card className="mt-8">
+                  <CardContent className="p-6">
+                    <Tabs value={tradingTab} onValueChange={setTradingTab} className="w-full">
+                      <TabsList className="grid w-full grid-cols-2">
+                        <TabsTrigger value="sell">Create Listing</TabsTrigger>
+                        <TabsTrigger value="my-trades">My Trades</TabsTrigger>
+                      </TabsList>
+
+                      <TabsContent value="sell" className="mt-6">
                         {!user ? (
                           <div className="text-center py-12">
                             <Lock className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
                             <h3 className="text-xl font-semibold mb-2">Login Required</h3>
                             <p className="text-muted-foreground mb-6">Please login to create listings</p>
-                            <Button onClick={() => navigate('/auth')}>Login to Sell</Button>
+                            <Button onClick={() => navigate('/auth')} className="bg-gold hover:bg-gold/90 text-navy">
+                              Login to Sell
+                            </Button>
                           </div>
                         ) : (
                           <div className="text-center py-12">
-                            <TrendingUp className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
-                            <h3 className="text-xl font-semibold mb-2">Create a Listing</h3>
-                            <p className="text-muted-foreground mb-6">List your products for global buyers</p>
-                            <Button disabled>Create Listing (Coming Soon)</Button>
+                            <TrendingUp className="h-16 w-16 text-gold mx-auto mb-4" />
+                            <h3 className="text-xl font-semibold mb-2">Create Your Listing</h3>
+                            <p className="text-muted-foreground mb-6">List your oil products for verified buyers worldwide</p>
+                            <Button disabled className="bg-muted">Create Listing (Coming Soon)</Button>
                           </div>
                         )}
-                      </CardContent>
-                    </Card>
-                  </TabsContent>
+                      </TabsContent>
 
-                  <TabsContent value="my-trades" className="mt-6">
-                    {!user ? (
-                      <Card>
-                        <CardContent className="pt-6">
+                      <TabsContent value="my-trades" className="mt-6">
+                        {!user ? (
                           <div className="text-center py-12">
                             <Lock className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
                             <h3 className="text-xl font-semibold mb-2">Login Required</h3>
                             <p className="text-muted-foreground mb-6">Please login to view your trades</p>
-                            <Button onClick={() => navigate('/auth')}>Login</Button>
+                            <Button onClick={() => navigate('/auth')} className="bg-gold hover:bg-gold/90 text-navy">
+                              Login
+                            </Button>
                           </div>
-                        </CardContent>
-                      </Card>
-                    ) : trades.length === 0 ? (
-                      <Card>
-                        <CardContent className="pt-6">
+                        ) : trades.length === 0 ? (
                           <div className="text-center py-12">
                             <Package className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
                             <h3 className="text-xl font-semibold mb-2">No Active Trades</h3>
                             <p className="text-muted-foreground">Start trading to see your transactions here</p>
                           </div>
-                        </CardContent>
-                      </Card>
-                    ) : (
-                      <div className="space-y-6">
-                        {trades.map((trade) => (
-                          <Card key={trade.id}>
-                            <CardHeader>
-                              <div className="flex justify-between items-start">
-                                <div>
-                                  <CardTitle>{trade.product_type}</CardTitle>
-                                  <p className="text-sm text-muted-foreground">
-                                    {trade.quantity} {trade.unit} @ ${trade.price_per_unit}/{trade.unit}
-                                  </p>
-                                </div>
-                                <div className="text-right">
-                                  <Badge variant={trade.status === 'completed' ? 'default' : 'secondary'}>
-                                    {statusIcons[trade.status as keyof typeof statusIcons]}
-                                    <span className="ml-2">{trade.status}</span>
-                                  </Badge>
-                                  <p className="text-sm text-muted-foreground mt-2">
-                                    Escrow: {trade.escrow_status}
-                                  </p>
-                                </div>
-                              </div>
-                            </CardHeader>
-                            <CardContent>
-                              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div>
-                                  <h4 className="font-semibold mb-3">Seller Checklist</h4>
-                                  <div className="space-y-2">
-                                    {sampleChecklist.seller.map((item) => (
-                                      <div key={item.id} className="flex items-start space-x-2">
-                                        <Checkbox checked={item.completed} disabled />
-                                        <label className="text-sm">{item.label}</label>
-                                      </div>
-                                    ))}
+                        ) : (
+                          <div className="space-y-6">
+                            {trades.map((trade) => (
+                              <Card key={trade.id}>
+                                <CardHeader>
+                                  <div className="flex justify-between items-start">
+                                    <div>
+                                      <CardTitle>{trade.product_type}</CardTitle>
+                                      <p className="text-sm text-muted-foreground">
+                                        {trade.quantity} {trade.unit} @ ${trade.price_per_unit}/{trade.unit}
+                                      </p>
+                                    </div>
+                                    <div className="text-right">
+                                      <Badge variant={trade.status === 'completed' ? 'default' : 'secondary'}>
+                                        {statusIcons[trade.status as keyof typeof statusIcons]}
+                                        <span className="ml-2">{trade.status}</span>
+                                      </Badge>
+                                      <p className="text-sm text-muted-foreground mt-2">
+                                        Escrow: {trade.escrow_status}
+                                      </p>
+                                    </div>
                                   </div>
-                                  <Progress value={20} className="mt-4" />
-                                  <p className="text-sm text-muted-foreground mt-2">1 of 5 completed</p>
-                                </div>
-                                <div>
-                                  <h4 className="font-semibold mb-3">Buyer Checklist</h4>
-                                  <div className="space-y-2">
-                                    {sampleChecklist.buyer.map((item) => (
-                                      <div key={item.id} className="flex items-start space-x-2">
-                                        <Checkbox checked={item.completed} disabled />
-                                        <label className="text-sm">{item.label}</label>
+                                </CardHeader>
+                                <CardContent>
+                                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                      <h4 className="font-semibold mb-3">Seller Checklist</h4>
+                                      <div className="space-y-2">
+                                        {sampleChecklist.seller.map((item) => (
+                                          <div key={item.id} className="flex items-start space-x-2">
+                                            <Checkbox checked={item.completed} disabled />
+                                            <label className="text-sm">{item.label}</label>
+                                          </div>
+                                        ))}
                                       </div>
-                                    ))}
+                                      <Progress value={20} className="mt-4" />
+                                      <p className="text-sm text-muted-foreground mt-2">1 of 5 completed</p>
+                                    </div>
+                                    <div>
+                                      <h4 className="font-semibold mb-3">Buyer Checklist</h4>
+                                      <div className="space-y-2">
+                                        {sampleChecklist.buyer.map((item) => (
+                                          <div key={item.id} className="flex items-start space-x-2">
+                                            <Checkbox checked={item.completed} disabled />
+                                            <label className="text-sm">{item.label}</label>
+                                          </div>
+                                        ))}
+                                      </div>
+                                      <Progress value={0} className="mt-4" />
+                                      <p className="text-sm text-muted-foreground mt-2">0 of 5 completed</p>
+                                    </div>
                                   </div>
-                                  <Progress value={0} className="mt-4" />
-                                  <p className="text-sm text-muted-foreground mt-2">0 of 5 completed</p>
-                                </div>
-                              </div>
-                              <div className="mt-6 pt-6 border-t flex justify-between items-center">
-                                <div>
-                                  <p className="text-sm text-muted-foreground">Total Amount</p>
-                                  <p className="text-2xl font-bold text-gold">${trade.total_amount.toLocaleString()}</p>
-                                  <p className="text-sm text-muted-foreground">
-                                    Payment: {paymentMethods[trade.payment_method as keyof typeof paymentMethods].name}
-                                  </p>
-                                </div>
-                                <div className="flex gap-2">
-                                  <Button variant="outline" disabled>View Details</Button>
-                                  <Button disabled>Update Progress</Button>
-                                </div>
-                              </div>
-                            </CardContent>
-                          </Card>
-                        ))}
-                      </div>
-                    )}
-                  </TabsContent>
-                </Tabs>
+                                </CardContent>
+                              </Card>
+                            ))}
+                          </div>
+                        )}
+                      </TabsContent>
+                    </Tabs>
+                  </CardContent>
+                </Card>
               </TabsContent>
             </Tabs>
           </div>
