@@ -38,7 +38,7 @@ const Home = () => {
               </Button>
             </Link>
             <Link to="/p2p-platform">
-              <Button size="lg" variant="outline" className="border-gold text-background hover:bg-gold/10">
+              <Button size="lg" variant="outline" className="border-gold text-black hover:bg-gold/10">
                 P2P Energy Exchange
               </Button>
             </Link>
