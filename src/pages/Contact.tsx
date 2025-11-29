@@ -60,7 +60,7 @@ const Contact = () => {
                 <CardContent className="p-6 text-center">
                   <Phone className="h-12 w-12 text-gold mx-auto mb-4" />
                   <h3 className="text-xl font-semibold text-primary mb-2">Call Us</h3>
-                  <p className="text-muted-foreground mb-2">+1 (555) 123-4567</p>
+                  <p className="text-muted-foreground mb-2">+966 138 772828</p>
                   <p className="text-sm text-muted-foreground">24/7 Support Available</p>
                 </CardContent>
               </Card>
