@@ -7,13 +7,16 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Progress } from "@/components/ui/progress";
-import { Network, Shield, TrendingUp, Users, Lock, CheckCircle, ArrowRight, ShoppingCart, Package, Clock, AlertCircle, DollarSign } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Network, Shield, TrendingUp, Users, Lock, CheckCircle, ArrowRight, ShoppingCart, Package, Clock, AlertCircle, DollarSign, Search, BarChart3, History } from "lucide-react";
 import p2pImage from "@/assets/p2p-trading.jpg";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import TradeDialog from "@/components/TradeDialog";
+import PriceAnalysis from "@/components/PriceAnalysis";
+import TradeHistory from "@/components/TradeHistory";
 
 interface Trade {
   id: string;
@@ -38,6 +41,8 @@ const P2PPlatform = () => {
   const [tradingTab, setTradingTab] = useState("buy");
   const [selectedTrade, setSelectedTrade] = useState<Trade | null>(null);
   const [tradeDialogOpen, setTradeDialogOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [productFilter, setProductFilter] = useState<string>("all");
   const { user } = useAuth();
   const navigate = useNavigate();
 
@@ -201,9 +206,17 @@ const P2PPlatform = () => {
         <section className="py-12 bg-background">
           <div className="container mx-auto px-4">
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-              <TabsList className="grid w-full grid-cols-2 mb-8">
+              <TabsList className="grid w-full grid-cols-4 mb-8">
                 <TabsTrigger value="overview">Platform Overview</TabsTrigger>
                 <TabsTrigger value="dashboard">Trading Dashboard</TabsTrigger>
+                <TabsTrigger value="analysis">
+                  <BarChart3 className="h-4 w-4 mr-1.5" />
+                  Price Analysis
+                </TabsTrigger>
+                <TabsTrigger value="history">
+                  <History className="h-4 w-4 mr-1.5" />
+                  Trade History
+                </TabsTrigger>
               </TabsList>
 
               <TabsContent value="overview">
