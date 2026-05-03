@@ -800,6 +800,28 @@ const P2PPlatform = () => {
                   </CardContent>
                 </Card>
               </TabsContent>
+
+              <TabsContent value="analysis">
+                <div className="mb-6">
+                  <h2 className="text-3xl font-bold text-primary mb-2 flex items-center gap-2">
+                    <BarChart3 className="h-7 w-7 text-gold" />
+                    Price Analysis
+                  </h2>
+                  <p className="text-muted-foreground">Live price ticks, 24h trend, and market depth across major products.</p>
+                </div>
+                <PriceAnalysis />
+              </TabsContent>
+
+              <TabsContent value="history">
+                <div className="mb-6">
+                  <h2 className="text-3xl font-bold text-primary mb-2 flex items-center gap-2">
+                    <History className="h-7 w-7 text-gold" />
+                    Trade History
+                  </h2>
+                  <p className="text-muted-foreground">Streaming feed of executed and settled P2P trades.</p>
+                </div>
+                <TradeHistory />
+              </TabsContent>
             </Tabs>
           </div>
         </section>
