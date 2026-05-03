@@ -520,6 +520,38 @@ const P2PPlatform = () => {
                       </h3>
                       <p className="text-sm text-muted-foreground">Real-time listings from verified sellers worldwide</p>
                     </div>
+                    <div className="flex flex-col sm:flex-row gap-2 w-full md:w-auto">
+                      <div className="relative flex-1 md:w-72">
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                        <Input
+                          placeholder="Search product or port..."
+                          value={searchQuery}
+                          onChange={(e) => setSearchQuery(e.target.value)}
+                          className="pl-9"
+                        />
+                      </div>
+                      <div className="flex rounded-md border border-border overflow-hidden">
+                        {[
+                          { v: "all", l: "All" },
+                          { v: "crude", l: "Crude" },
+                          { v: "diesel", l: "Diesel" },
+                          { v: "jet", l: "Jet" },
+                          { v: "lpg", l: "LPG" },
+                        ].map((o) => (
+                          <button
+                            key={o.v}
+                            onClick={() => setProductFilter(o.v)}
+                            className={`px-3 py-2 text-xs font-medium transition-colors ${
+                              productFilter === o.v
+                                ? "bg-gold text-navy"
+                                : "bg-background text-muted-foreground hover:bg-muted"
+                            }`}
+                          >
+                            {o.l}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
                   </div>
                   
                   {/* Payment Methods Info */}
@@ -563,19 +595,34 @@ const P2PPlatform = () => {
                     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gold mx-auto mb-4"></div>
                     <p className="text-muted-foreground">Loading live market data...</p>
                   </div>
-                ) : publicListings.length === 0 ? (
+                ) : (() => {
+                  const filteredListings = publicListings.filter((l) => {
+                    const q = searchQuery.toLowerCase();
+                    const matchQ =
+                      !q ||
+                      l.product_type.toLowerCase().includes(q) ||
+                      (l.delivery_location || "").toLowerCase().includes(q);
+                    const matchF =
+                      productFilter === "all" ||
+                      (productFilter === "crude" && /crude/i.test(l.product_type)) ||
+                      (productFilter === "diesel" && /diesel/i.test(l.product_type)) ||
+                      (productFilter === "jet" && /jet/i.test(l.product_type)) ||
+                      (productFilter === "lpg" && /lpg|lng|propane/i.test(l.product_type));
+                    return matchQ && matchF;
+                  });
+                  return filteredListings.length === 0 ? (
                   <Card>
                     <CardContent className="pt-6">
                       <div className="text-center py-12">
                         <ShoppingCart className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
-                        <h3 className="text-xl font-semibold mb-2">No Available Listings</h3>
-                        <p className="text-muted-foreground">Check back soon for new trading opportunities</p>
+                        <h3 className="text-xl font-semibold mb-2">No Matching Listings</h3>
+                        <p className="text-muted-foreground">Try adjusting your search or filters</p>
                       </div>
                     </CardContent>
                   </Card>
                 ) : (
                   <div className="grid gap-4">
-                    {publicListings.map((listing, index) => (
+                    {filteredListings.map((listing, index) => (
                       <Card key={listing.id} className="border-border hover:shadow-lg transition-all hover-scale animate-fade-in group" style={{ animationDelay: `${index * 0.05}s` }}>
                         <CardContent className="p-6">
                           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -643,7 +690,8 @@ const P2PPlatform = () => {
                       </Card>
                     ))}
                   </div>
-                )}
+                  );
+                })()}
 
                 {/* Additional Tabs */}
                 <Card className="mt-8">
