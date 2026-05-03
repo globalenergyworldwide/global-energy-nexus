@@ -8,7 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Progress } from "@/components/ui/progress";
 import { Input } from "@/components/ui/input";
-import { Network, Shield, TrendingUp, Users, Lock, CheckCircle, ArrowRight, ShoppingCart, Package, Clock, AlertCircle, DollarSign, Search, BarChart3, History } from "lucide-react";
+import { Network, Shield, TrendingUp, Users, Lock, CheckCircle, ArrowRight, ShoppingCart, Package, Clock, AlertCircle, DollarSign, Search, BarChart3, History, LayoutDashboard, Info } from "lucide-react";
 import p2pImage from "@/assets/p2p-trading.jpg";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
@@ -38,6 +38,13 @@ const P2PPlatform = () => {
   const [publicListings, setPublicListings] = useState<Trade[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("dashboard");
+
+  const navItems = [
+    { value: "dashboard", label: "Trading Dashboard", icon: LayoutDashboard, desc: "Live offers & stats" },
+    { value: "analysis", label: "Price Analysis", icon: BarChart3, desc: "Charts & market depth" },
+    { value: "history", label: "Trade History", icon: History, desc: "Recent transactions" },
+    { value: "overview", label: "How It Works", icon: Info, desc: "Platform overview" },
+  ];
   const [tradingTab, setTradingTab] = useState("buy");
   const [selectedTrade, setSelectedTrade] = useState<Trade | null>(null);
   const [tradeDialogOpen, setTradeDialogOpen] = useState(false);
@@ -206,18 +213,26 @@ const P2PPlatform = () => {
         <section className="py-12 bg-background">
           <div className="container mx-auto px-4">
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-              <TabsList className="grid w-full grid-cols-4 mb-8">
-                <TabsTrigger value="overview">Platform Overview</TabsTrigger>
-                <TabsTrigger value="dashboard">Trading Dashboard</TabsTrigger>
-                <TabsTrigger value="analysis">
-                  <BarChart3 className="h-4 w-4 mr-1.5" />
-                  Price Analysis
-                </TabsTrigger>
-                <TabsTrigger value="history">
-                  <History className="h-4 w-4 mr-1.5" />
-                  Trade History
-                </TabsTrigger>
-              </TabsList>
+              {/* Sticky, scrollable, icon-rich nav */}
+              <div className="sticky top-20 z-30 -mx-4 px-4 py-3 mb-8 bg-background/85 backdrop-blur-md border-b border-border">
+                <TabsList className="h-auto w-full bg-muted/40 p-1.5 flex flex-nowrap overflow-x-auto md:grid md:grid-cols-4 gap-1.5 rounded-xl">
+                  {navItems.map((item) => {
+                    const Icon = item.icon;
+                    const active = activeTab === item.value;
+                    return (
+                      <TabsTrigger
+                        key={item.value}
+                        value={item.value}
+                        className={`group flex-shrink-0 md:flex-shrink flex flex-col md:flex-row items-center md:items-center justify-center gap-1 md:gap-2 px-3 py-2.5 rounded-lg text-xs md:text-sm font-semibold transition-all duration-200 hover:bg-gold/10 hover:text-gold data-[state=active]:bg-gold data-[state=active]:text-navy data-[state=active]:shadow-md`}
+                        title={item.desc}
+                      >
+                        <Icon className={`h-4 w-4 transition-transform ${active ? "" : "group-hover:scale-110"}`} />
+                        <span className="whitespace-nowrap">{item.label}</span>
+                      </TabsTrigger>
+                    );
+                  })}
+                </TabsList>
+              </div>
 
               <TabsContent value="overview">
                 <div className="space-y-16">
